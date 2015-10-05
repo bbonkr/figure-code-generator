@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Generate Figure code</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.css" rel="stylesheet">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Figure Code Generator</h1>
+            <p>Generate figure code from flickr share-html code.<br />
+                <a href="http://ashleydw.github.io/lightbox">with Bootstrap 3 Lightbox</a>
+            </p>
+            <div>Sample code:<!--Collapse--></div>
+            <div>
+                <pre><code>&lt;a data-flickr-embed="true" data-header="true" data-footer="true"  href="https://www.flickr.com/photos/bbonkr/21862860156/in/datetaken/" title="호"&gt;&lt;img src="https://farm1.staticflickr.com/614/21862860156_3eb7870303_o.jpg" width="698" height="466" alt="호"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="txtFlickrCode"><span class="text-primary">*</span> Flickr Share Code:</label>
+                    <textarea id="txtFlickrCode" class="form-control" rows="3"></textarea>
+                </div>    
+                <div class="form-group">
+                    <label for="txtCaption">Caption:</label>
+                    <input type="text" id="txtCaption" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="txtLightboxTitle">Lightbox Title:</label>
+                    <input type="text" id="txtLightboxTitle" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="txtLightboxFooter">Lightbox Footer:</label>
+                    <input type="text" id="txtLightboxFooter" class="form-control" />
+                </div>
+                <div class="well">
+                    <span class="text-primary">*</span> mark is required field.
+                </div>
+                <button id="btnGen" class="btn btn-primary">Generate</button>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Flickr Preview</h2>
+                <div class="well" id="divOutput"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Figure Preview</h2>
+                <div class="well" id="divFigure"></div>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Figure Code</h2>
+                <div class="well" id="divCode"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+        $('#txtFlickrCode').val('');
+        $('#btnGen').prop('disabled', true);
+        $('#txtFlickrCode').on('change', function(){
+            $('#btnGen').prop('disabled', $(this).val().length == 0);
+        });
+
+        $('#btnGen').on('click',function(e){
+            e.preventDefault();
+
+            var html = $('#txtFlickrCode').val();
+
+            if(!html || html.length == 0 ) { return false; }
+
+            $('#divOutput').html(html);
+            
+            var caption = $('#txtCaption').val();
+            var lightboxTitle = $('#txtLightboxTitle').val();
+            var lightboxFooter = $('#txtLightboxFooter').val();
+
+            var flickLink = $('#divOutput>a').attr('href');
+            var imgUrl = $('#divOutput>a>img').attr('src');
+            var imgAlt = $('#divOutput>a>img').attr('alt');
+
+            var $figure = $("<figure></figure>");
+            var $figcaption = $('<figcaption></figcaption>');
+            var $aImg = $('<a></a>');
+            var $img = $('<img />');
+            var $viewOnFlickWarp = $('<small></small>');
+            var $viewOnFlick = $('<a></a>');
+
+            if(!caption || caption.length == 0){
+                caption = imgAlt;
+            }
+
+            if (!lightboxTitle || lightboxTitle.length == 0){
+                lightboxTitle = 'Flickr Image';
+            }
+
+            if(!lightboxFooter || lightboxFooter.length == 0){
+                lightboxFooter = imgAlt;
+            }
+
+            // View on Flick 
+            $viewOnFlick.attr('href', flickLink);
+            $viewOnFlick.text('View on Flickr');
+            $viewOnFlickWarp.append($viewOnFlick);
+
+            // image
+            $img.attr({'src': imgUrl, 'alt': imgAlt });
+            $aImg.attr({'href': imgUrl,'data-toggle':'lightbox', 'data-title':lightboxTitle, 'data-footer':lightboxFooter});
+            $aImg.append($img);
+
+            $figcaption.text(caption).append('<br />').append($viewOnFlickWarp);
+
+            $figure.append($aImg).append($figcaption);
+
+            var $pre = $('<pre></pre>');
+            var $code = $('<code></code>');
+
+            var test = '';
+            test += flickLink; 
+            test += '<br />'; 
+            test += imgUrl;
+
+            // $('#divFigure').text(test);
+            // $('#divFigure').append($viewOnFlickWarp);
+            $('#divFigure').append($figure);
+
+            $code.text($('#divFigure').html());
+            $pre.append($code);
+
+            $('#divCode').append($pre);
+        });
+    });
+
+    $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    }); 
+    </script>
+</body>
+</html>
