@@ -9,11 +9,13 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.css" rel="stylesheet">
-
+    <!-- <link href="https://buttons.github.io/components/octicons/octicons/octicons.css" rel="stylesheet"> -->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/3.3.0/ekko-lightbox.min.js"></script>
+    <!-- Place this tag right after the last button or just before your close body tag. -->
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body>
     <div class="container">
@@ -22,6 +24,23 @@
             <p>Generate figure code from flickr share-html code.<br />
                 <a href="http://ashleydw.github.io/lightbox">with Bootstrap 3 Lightbox</a>
             </p>
+            <div class="text-center">
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="github-button" href="https://github.com/bbonkr" data-count-href="/bbonkr/followers" data-count-api="/users/bbonkr#followers" data-count-aria-label="# followers on GitHub" aria-label="Follow @bbonkr on GitHub">Follow @bbonkr</a>
+                    </li>
+                    <li>
+                        <a class="github-button" href="https://github.com/bbonkr/figure-code-generator" data-icon="octicon-eye" data-count-href="/bbonkr/figure-code-generator/watchers" data-count-api="/repos/bbonkr/figure-code-generator#subscribers_count" data-count-aria-label="# watchers on GitHub" aria-label="Watch bbonkr/figure-code-generator on GitHub">Watch</a>
+                    </li>
+                    <li>
+                        <a class="github-button" href="https://github.com/bbonkr/figure-code-generator" data-icon="octicon-star" data-count-href="/bbonkr/figure-code-generator/stargazers" data-count-api="/repos/bbonkr/figure-code-generator#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star bbonkr/figure-code-generator on GitHub">Star</a>
+                    </li>
+                    <li>
+                        <a class="github-button" href="https://github.com/bbonkr/figure-code-generator/fork" data-icon="octicon-repo-forked" data-count-href="/bbonkr/figure-code-generator/network" data-count-api="/repos/bbonkr/figure-code-generator#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork bbonkr/figure-code-generator on GitHub">Fork</a>
+                    </li>
+                </ul>
+
+            </div>
             <div>Sample code:<!--Collapse--></div>
             <div>
                 <pre><code>&lt;a data-flickr-embed="true" data-header="true" data-footer="true"  href="https://www.flickr.com/photos/bbonkr/21862860156/in/datetaken/" title="호"&gt;&lt;img src="https://farm1.staticflickr.com/614/21862860156_3eb7870303_o.jpg" width="698" height="466" alt="호"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;</code></pre>
@@ -32,20 +51,20 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="txtFlickrCode"><span class="text-primary">*</span> Flickr Share Code:</label>
-                    <textarea id="txtFlickrCode" class="form-control" rows="3"></textarea>
+                    <textarea id="txtFlickrCode" class="form-control" rows="3" placeholder="Paste Flickr Share HTML Code"></textarea>
                 </div>    
                 <div class="form-group">
                     <label for="txtCaption">Caption:</label>
-                    <input type="text" id="txtCaption" class="form-control" />
+                    <input type="text" id="txtCaption" class="form-control" placeholder="Figure Caption" />
                 </div>
                 <div class="form-group">
                     <label for="txtLightboxTitle">Lightbox Title:</label>
-                    <input type="text" id="txtLightboxTitle" class="form-control" />
+                    <input type="text" id="txtLightboxTitle" class="form-control" placeholder="Lightbox Title" />
                 </div>
 
                 <div class="form-group">
                     <label for="txtLightboxFooter">Lightbox Footer:</label>
-                    <input type="text" id="txtLightboxFooter" class="form-control" />
+                    <input type="text" id="txtLightboxFooter" class="form-control" placeholder="Lightbox Footer" />
                 </div>
                 <div class="well">
                     <span class="text-primary">*</span> mark is required field.
