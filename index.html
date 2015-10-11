@@ -48,7 +48,7 @@
 
             </div>
             <div>Sample code:<!--Collapse--></div>
-            <div>
+            <div id="divSampleCode">
                 <pre><code>&lt;a data-flickr-embed="true" data-header="true" data-footer="true"  href="https://www.flickr.com/photos/bbonkr/21862860156/in/datetaken/" title="호"&gt;&lt;img src="https://farm1.staticflickr.com/614/21862860156_3eb7870303_o.jpg" width="698" height="466" alt="호"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;</code></pre>
             </div>
 
@@ -107,12 +107,24 @@
             $('#btnGen').prop('disabled', $(this).val().length == 0);
         });
 
-        $('#btnGen').on('click',function(e){
+        $('#divOutput > pre > code').on('click', function(){
+            $(this).select();
+        });
+
+        $('#divSampleCode > pre > code').on('click', function(){
+            $(this).select();
+        });
+
+        $('#btnGen').on('click', function(e){
             e.preventDefault();
 
             var html = $('#txtFlickrCode').val();
 
             if(!html || html.length == 0 ) { return false; }
+
+            $('#divOutput').empty();
+            $('#divFigure').empty();
+            $('#divCode').empty();
 
             $('#divOutput').html(html);
             
